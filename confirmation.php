@@ -1,3 +1,12 @@
+<?php
+  require 'userData.php';
+  
+  $cookie_name = "isLoggedIn";
+  $cookie_value = "false";
+
+  if(isset($_COOKIE[$cookie_name])) {
+    if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,3 +80,12 @@
 
 </body>
 </html>
+<?php
+    }else {
+      echo "Please login your account first before booking";
+      echo "<br/><a href='index.php'>Go to home page and try again</a>";
+      exit;
+    }
+  }
+?>
+

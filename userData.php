@@ -33,10 +33,22 @@ $sql = "SELECT * FROM users WHERE userName = '$userName' and pass = '$mypswd'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_row($result);
 
+
+
 if (!empty($row) && $row[1] === $userName){    
     // Set session variables
     $_SESSION["uname"] = $userName;
     $_SESSION["full_name"] = $row[3];
+    
+    /**
+     * Set logged in cookie in browser
+     */
+    $cookie_name = "isLoggedIn";
+    $cookie_value = "true";
+
+    if(isset($_COOKIE[$cookie_name])) {
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+    }
     header('Location: index.php');
     exit;
 }
