@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Movies</title>
+  <title>Events</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -66,7 +66,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.php">Movies</a>
+      <a class="navbar-brand" href="index.php">Events</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -120,7 +120,7 @@
         <img src="./assets/loader/loader.gif" />
     </div>
     <div class="movies-data" style="display:none;">
-        <h3>Featured movies</h3><br>
+        <h3>Featured events</h3><br>
         <div id="movie-listing-main">
         </div> 
     </div>
@@ -153,7 +153,7 @@
 <!--Signup form -->
 <div id="id02" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php">
+  <form class="modal-content animate" action="signup.php">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="./assets/images/user.png" alt="Avatar" class="avatar">
@@ -164,10 +164,10 @@
       <input type="text" placeholder="Enter Username" name="uname" required>
 
       <label for="uname"><b>Email:</b></label>
-      <input type="text" placeholder="Enter Email" name="uname" required>
+      <input type="text" placeholder="Enter Email" name="uemail" required>
 
       <label for="uname"><b>Your full name:</b></label>
-      <input type="text" placeholder="Enter your full name" name="uname" required>
+      <input type="text" placeholder="Enter your full name" name="ufullname" required>
 
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
@@ -204,7 +204,7 @@ window.onclick = function(event) {
 <!-- Display user profile data -->
 <div id="userData"></div>
   <p>Harsh Pandloskar (10384363) | MSc In Information Systems with Computing</p><br>
-  <p>Movies PWA | Web Assignment</p>
+  <p>Events PWA | Web Assignment</p>
 </footer>
 
 </body>

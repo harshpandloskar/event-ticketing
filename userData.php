@@ -33,13 +33,19 @@ $sql = "SELECT * FROM users WHERE userName = '$userName' and pass = '$mypswd'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_row($result);
 
-if ($row[1] === $userName){    
+if (!empty($row) && $row[1] === $userName){    
     // Set session variables
     $_SESSION["uname"] = $userName;
     $_SESSION["full_name"] = $row[3];
     header('Location: index.php');
     exit;
 }
+else if($userName != '' && $mypswd != '') {
+    echo "username and password are incorrect";
+    echo "<br/><a href='index.php'>Go back and try again</a>";
+    exit;
+}
+
 mysqli_close($conn);
 
 ?>

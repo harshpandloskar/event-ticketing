@@ -29,7 +29,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.php">Movies</a>
+      <a class="navbar-brand" href="index.php">Events</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -53,7 +53,7 @@
 
 <footer class="container-fluid text-center">
   <p>Harsh Pandloskar (10384363) | MSc In Information Systems with Computing</p><br>
-  <p>Movies PWA | Web Assignment</p>
+  <p>Events PWA | Web Assignment</p>
 </footer>
 
 </body>
