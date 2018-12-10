@@ -4,8 +4,70 @@
   $cookie_name = "isLoggedIn";
   $cookie_value = "false";
 
+  $_time = $_GET["time"];
+  $_day = $_GET["day"];
+  
+  /**
+   * Booking ID
+   */
+  $length = 6;
+  $_bookingID = strtoupper(substr(str_shuffle("abcdefghijklmnopqrstuvwxyz123456789"), 0, $length));
+
+  /**
+   * Event name
+   */
+  $_eventName = ucfirst($_GET["event"]);
+
+  /**
+   * Seat number
+   */
+  $length = 2;
+  $random_seat = strtoupper(substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, $length));
+
+  $seat_num = strtoupper($random_seat. '' .rand(0,10));
+
   if(isset($_COOKIE[$cookie_name])) {
     if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
+      
+      // function test_data($data) {
+      //   $data = trim($data);
+      //   $data = stripslashes($data);
+      //   $data = htmlspecialchars($data);
+      //   return $data;
+      // }
+
+      // Create connection
+      $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
+      // Check connection
+      if (!$conn) {
+          die("Connection failed: " . mysqli_connect_error());
+      }
+
+      $userNameC = $_SESSION["uname"];
+      $userEmailC = $_SESSION["email"];
+
+      $sqlQueryConfirmation = "SELECT * FROM booking WHERE userName = '$userNameC'";
+      $resultConfirmation = mysqli_query($conn, $sqlQueryConfirmation);
+      $rowC = mysqli_fetch_row($resultConfirmation);
+
+      $_eventNameD = $rowC[5];
+      $bookingID = $rowC[3];
+
+      if($bookingID != $_bookingID && $_eventNameD != $_eventName) {
+
+        /**
+         * Insert into database.
+         */
+        $sqlQueryInsertion = "INSERT INTO booking (userName, userEmail, bookingID, seatNum, eventName, eventDay, eventTime)
+        VALUES ('$userNameC', '$userEmailC', '$_bookingID', '$seat_num', '$_eventName', '$_day', '$_time')";
+        // print_r($userEmailC);
+
+        if (mysqli_query($conn, $sqlQueryInsertion)) {
+          echo "";
+        }
+      }
+
+      
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +82,7 @@
   <link rel="stylesheet" href="assets/confirmation.css">
   <link rel="manifest" href="manifest.json">
   <script>
+
     /*Registering service worker in sw.js*/
     if('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
@@ -62,11 +125,11 @@
         <img src="./assets/confirm/confirmed.png" /><br>
         <div id="booking details">
             <div>
-                <p class="_movie-name"><strong>Movie:</strong> </p>
-                <p class="_seat"><strong>Seat:</strong> | </p>
-                <p class="_time"><strong>Time:</strong> </p>
-                <p class="_day"><strong>Day:</strong> </p>
-                <p class="_bookingID"><strong>Booking ID:</strong> </p>
+                <p class="_movie-name"><strong>Event:</strong> <?php echo $_eventName; ?></p>
+                <p class="_seat"><strong>Seat:</strong> | <?php echo $seat_num; ?> | </p>
+                <p class="_time"><strong>Time:</strong> <?php echo $_time; ?></p>
+                <p class="_day"><strong>Day:</strong> <?php echo $_day; ?></p>
+                <p class="_bookingID"><strong>Booking ID:</strong> <?php echo $_bookingID; ?> </p>
                 <p style="font-size:14px;">Please show this booking id before entering!</p>
             </div>
         </div> 

@@ -28,10 +28,12 @@ function randomString(length, chars) {
  * Appending all informations in HTML DOM.
  */
 $(function(){
-    $("._movie-name").append(capitalizeFirstLetter(getURLParameter("movie")));
-    $("._time").append(getURLParameter("time"));
-    $("._day").append(capitalizeFirstLetter(getURLParameter("day")));
-    $("._bookingID").append(randomString(6, 'abcdefghijklmnopqrstuvwxyz').toUpperCase());
+    // $("._movie-name").append(capitalizeFirstLetter(getURLParameter("movie")));
+    // $("._time").append(getURLParameter("time"));
+    // $("._day").append(capitalizeFirstLetter(getURLParameter("day")));
+    // $("._bookingID").append(randomString(6, 'abcdefghijklmnopqrstuvwxyz').toUpperCase());
+
+    _bookingID = randomString(6, 'abcdefghijklmnopqrstuvwxyz').toUpperCase();
 
     /**
      * For now, I have done hard coded. But remove it asap if we are showing
@@ -40,10 +42,10 @@ $(function(){
     var _seatQuantity = 1;
     // var _seatQuantity = getURLParameter("seatQuantity");
 
-    for(var i=0; i<_seatQuantity; i++) {
-        var generateSeat = randomString(1, 'abcdefghijklmnopqrstuvwxyz')+''+Math.floor(Math.random()*30);
-        $("._seat").append(generateSeat.toUpperCase()+' | ');
-    }
+    // for(var i=0; i<_seatQuantity; i++) {
+    //     var generateSeat = randomString(1, 'abcdefghijklmnopqrstuvwxyz')+''+Math.floor(Math.random()*30);
+    //     $("._seat").append(generateSeat.toUpperCase()+' | ');
+    // }
 })
 
 

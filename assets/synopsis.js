@@ -64,49 +64,49 @@ $(function() {
                  * This is for calculating showtimes on monday
                  */
                 for(var j=0; j<data[i].runningTimes.mon.length; j++) {
-                    $("#monday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=monday&time="+encodeURIComponent(data[i].runningTimes.mon[j])+"'>"+data[i].runningTimes.mon[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#monday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=monday&time="+encodeURIComponent(data[i].runningTimes.mon[j])+"'>"+data[i].runningTimes.mon[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
 
                 /**
                  * This is for calculating showtimes on tuesday
                  */
                 for(var j=0; j<data[i].runningTimes.tue.length; j++) {
-                    $("#tuesday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=tuesday&time="+encodeURIComponent(data[i].runningTimes.tue[j])+"'>"+data[i].runningTimes.tue[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#tuesday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=tuesday&time="+encodeURIComponent(data[i].runningTimes.tue[j])+"'>"+data[i].runningTimes.tue[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
 
                 /**
                  * This is for calculating showtimes on wednesday
                  */
                 for(var j=0; j<data[i].runningTimes.wed.length; j++) {
-                    $("#wednesday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=wednesday&time="+encodeURIComponent(data[i].runningTimes.wed[j])+"'>"+data[i].runningTimes.wed[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#wednesday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=wednesday&time="+encodeURIComponent(data[i].runningTimes.wed[j])+"'>"+data[i].runningTimes.wed[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
 
                 /**
                  * This is for calculating showtimes on thursday
                  */
                 for(var j=0; j<data[i].runningTimes.thu.length; j++) {
-                    $("#thursday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=thursday&time="+encodeURIComponent(data[i].runningTimes.thu[j])+"'>"+data[i].runningTimes.thu[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#thursday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=thursday&time="+encodeURIComponent(data[i].runningTimes.thu[j])+"'>"+data[i].runningTimes.thu[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
 
                 /**
                  * This is for calculating showtimes on friday
                  */
                 for(var j=0; j<data[i].runningTimes.fri.length; j++) {
-                    $("#friday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=friday&time="+encodeURIComponent(data[i].runningTimes.fri[j])+"'>"+data[i].runningTimes.fri[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#friday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=friday&time="+encodeURIComponent(data[i].runningTimes.fri[j])+"'>"+data[i].runningTimes.fri[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
 
                 /**
                  * This is for calculating showtimes on saturday
                  */
                 for(var j=0; j<data[i].runningTimes.sat.length; j++) {
-                    $("#saturday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=saturday&time="+encodeURIComponent(data[i].runningTimes.sat[j])+"'>"+data[i].runningTimes.sat[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#saturday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=saturday&time="+encodeURIComponent(data[i].runningTimes.sat[j])+"'>"+data[i].runningTimes.sat[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
                 
                 /**
                  * This is for calculating showtimes on sunday
                  */
                 for(var j=0; j<data[i].runningTimes.sun.length; j++) {
-                    $("#sunday ._time-available").append("<a href='confirmation.php?movie="+encodeURIComponent(data[i].title)+"&day=sunday&time="+encodeURIComponent(data[i].runningTimes.sun[j])+"'>"+data[i].runningTimes.sun[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
+                    $("#sunday ._time-available").append("<a href='confirmation.php?event="+encodeURIComponent(data[i].title)+"&day=sunday&time="+encodeURIComponent(data[i].runningTimes.sun[j])+"'>"+data[i].runningTimes.sun[j]+"</a>&nbsp;&nbsp;|&nbsp;&nbsp;");
                 }
                 break;
             }

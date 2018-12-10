@@ -79,7 +79,7 @@
         ?>
           <li>
             <!-- User name -->
-            <a href="javascript:void(0);" style="width:auto;color:#fff;"><?php echo 'Hi, ' . $_SESSION["full_name"] . '!'; ?></a>
+            <a href="booking.php" style="width:auto;color:#fff;"><?php echo 'Hi, ' . $_SESSION["full_name"] . '!'; ?></a>
           </li>
           <li style="color: #fff;">
             &nbsp;&nbsp;|&nbsp;&nbsp;
