@@ -139,14 +139,66 @@
             <p class="_align-left"><strong>Waiting status:</strong> N/A</strong></p>
           </div>
 
-          <button type="button" class="btn btn-primary">Ticket cancellation available</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal">Ticket cancellation available</button>
         </div><br/>
-        
+
     </div>
 </div><br/><br/>
 
+<!-- Ticket cancel ask option -->
+<!-- Modal -->
+<div class="modal fade" id="cancellationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ticket cancellation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        What would you like to do?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="transferTicket" class="btn btn-primary" data-toggle="modal" data-target="#transferTicketModal">Transfer ticket</button>
+        <button type="button" class="btn btn-primary">Sell back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Ticket transfer option modal-->
+<div class="modal fade" id="transferTicketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">To whom would you like to transfer your ticket?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">User email:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Remark:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--Login form -->
-<div id="id01" class="modal">
+<div id="id01" class="modalM">
   
   <form class="modal-content animate" method="post" action="userData.php">
     <div class="imgcontainer">
@@ -170,7 +222,7 @@
 </div>
 
 <!--Signup form -->
-<div id="id02" class="modal">
+<div id="id02" class="modalM">
   
   <form class="modal-content animate" action="signup.php">
     <div class="imgcontainer">
@@ -213,6 +265,14 @@ window.onclick = function(event) {
         modal2.style.display = "none";
     }
 }
+
+/**
+ * Close current modal after opnening new modal
+ */
+$("#transferTicket").click(function(){
+    $("#cancellationModal").hide();
+    $('#cancellationModal').modal('hide');
+});
 </script>
 
 
