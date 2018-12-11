@@ -1,7 +1,7 @@
 <?php
     // Database configuration
-    $dbHost     = "db4free.net";
-    $dbUsername = "harshapp";
-    $dbPassword = "123456789";
-    $dbName     = "harshapp";
+    $dbHost     = "162.215.253.205";
+    $dbUsername = "creatsm3_ticket";
+    $dbPassword = "12345";
+    $dbName     = "creatsm3_eventticketing";
 ?>
