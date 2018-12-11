@@ -180,3 +180,12 @@ span.psw {
   height: 100px!important;
   width: 100px!important;
 }
+
+._purchase-booking {
+  width: 650px;
+  text-align: center;
+  background: #efefef;
+  margin: 0 auto;
+  padding: 10px;
+}
+

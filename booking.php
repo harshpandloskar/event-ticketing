@@ -127,7 +127,20 @@
         <img src="./assets/loader/loader.gif" />
     </div>
     <div class="movies-data" style="display:none;">
-        <h3>Events booking history</h3><br>
+        <h3 class="panel-body"><strong>Purchase history</strong></h3>
+        <div class="_purchase-booking panel panel-default">
+          <div class="_bookingInfo">
+            <p class="_align-left"><strong>Event:</strong> The Jungle Book</p>
+            <p class="_align-left"><strong>Seat:</strong> | VD4 |</strong></p>
+            <p class="_align-left"><strong>Time:</strong> 20:55</strong></p>
+            <p class="_align-left"><strong>Day: </strong>wednesday</strong></p>
+            <p class="_align-left"><strong>Booking ID:</strong> J4Y89H</strong></p>
+            <p class="_align-left"><strong>Booking status:</strong> confirmed!</strong></p>
+            <p class="_align-left"><strong>Waiting status:</strong> N/A</strong></p>
+          </div>
+
+          <button type="button" class="btn btn-primary">Ticket cancellation available</button>
+        </div><br/>
         
     </div>
 </div><br/><br/>
