@@ -23,5 +23,7 @@ CREATE TABLE `booking` (
     eventName VARCHAR(100) NOT NULL,
     eventDay VARCHAR(40) NOT NULL,
     eventTime VARCHAR(40) NOT NULL,
+	bookingStatus VARCHAR(100) NOT NULL,
+    waitingStatus VARCHAR(100) NOT NULL,
     PRIMARY KEY(UserNameID) 
 );

@@ -4,9 +4,16 @@
   $cookie_name = "isLoggedIn";
   $cookie_value = "false";
 
+  function resultToArray($result) {
+    $rows = array();
+    while($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+    }
+    return $rows;
+  }
+
   if(isset($_COOKIE[$cookie_name])) {
     if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
-
 ?>
 
 <!DOCTYPE html>
@@ -128,74 +135,105 @@
     </div>
     <div class="movies-data" style="display:none;">
         <h3 class="panel-body"><strong>Purchase history</strong></h3>
-        <div class="_purchase-booking panel panel-default">
-          <div class="_bookingInfo">
-            <p class="_align-left"><strong>Event:</strong> The Jungle Book</p>
-            <p class="_align-left"><strong>Seat:</strong> | VD4 |</strong></p>
-            <p class="_align-left"><strong>Time:</strong> 20:55</strong></p>
-            <p class="_align-left"><strong>Day: </strong>wednesday</strong></p>
-            <p class="_align-left"><strong>Booking ID:</strong> J4Y89H</strong></p>
-            <p class="_align-left"><strong>Booking status:</strong> confirmed!</strong></p>
-            <p class="_align-left"><strong>Waiting status:</strong> N/A</strong></p>
+        <?php
+          $username = $_SESSION["uname"];
+
+          // Create connection
+          $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
+          // Check connection
+          if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+          }
+
+          $sql = "SELECT * FROM booking WHERE userName = '$username'";
+          $result = mysqli_query($conn, $sql);
+          $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
+          for($i=0; $i<count($rows);$i++) {
+        ?>
+          <div class="_purchase-booking panel panel-default">
+            <div class="_bookingInfo">
+              <p class="_align-left"><strong>Event:</strong> <?php echo $rows[$i]["eventName"]; ?></p>
+              <p class="_align-left"><strong>Seat:</strong> | <?php echo $rows[$i]["eventName"]; ?> |</strong></p>
+              <p class="_align-left"><strong>Time:</strong> <?php echo $rows[$i]["eventTime"]; ?></strong></p>
+              <p class="_align-left"><strong>Day:</strong> <?php echo $rows[$i]["eventDay"]; ?></strong></p>
+              <p class="_align-left"><strong>Booking ID:</strong> <?php echo $rows[$i]["bookingID"]; ?></strong></p>
+              <p class="_align-left"><strong>Booking status:</strong> <?php echo $rows[$i]["bookingStatus"]; ?></strong></p>
+              <p class="_align-left"><strong>Waiting status:</strong> <?php echo $rows[$i]["waitingStatus"]; ?></strong></p>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal<?php echo $i; ?>">Ticket cancellation available</button>
+          </div><br/>
+
+          <!-- Ticket cancel ask option -->
+          <!-- Modal -->
+          <div class="modal fade" id="cancellationModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ticket cancellation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  What would you like to do?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="transferTicket<?php echo $i; ?>" class="btn btn-primary" data-toggle="modal" data-target="#transferTicketModal<?php echo $i; ?>">Transfer ticket</button>
+                  <button type="button" class="btn btn-primary">Sell back</button>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal">Ticket cancellation available</button>
-        </div><br/>
+          <!--Ticket transfer option modal-->
+          <div class="modal fade" id="transferTicketModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">To whom would you like to transfer your ticket?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">User email:</label>
+                      <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Remark:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <script>
+          /**
+           * Close current modal after opnening new modal
+           */
+          $("#transferTicket<?php echo $i; ?>").click(function(){
+              $("#cancellationModal<?php echo $i; ?>").hide();
+              $('#cancellationModal<?php echo $i; ?>').modal('hide');
+          });
+          </script>
+        <?php
+          }
+          // Free result set
+          mysqli_free_result($result);
+          mysqli_close($con);exit;
+        ?>
 
     </div>
 </div><br/><br/>
-
-<!-- Ticket cancel ask option -->
-<!-- Modal -->
-<div class="modal fade" id="cancellationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ticket cancellation</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        What would you like to do?
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="transferTicket" class="btn btn-primary" data-toggle="modal" data-target="#transferTicketModal">Transfer ticket</button>
-        <button type="button" class="btn btn-primary">Sell back</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Ticket transfer option modal-->
-<div class="modal fade" id="transferTicketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">To whom would you like to transfer your ticket?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">User email:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Remark:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!--Login form -->
 <div id="id01" class="modalM">
@@ -251,28 +289,20 @@
   </form>
 </div>
 
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-var modal2 = document.getElementById('id02');
+<script type="text/javascript">
+  // Get the modal
+  var modal = document.getElementById('id01');
+  var modal2 = document.getElementById('id02');
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-    if (event.target == modal2) {
-        modal2.style.display = "none";
-    }
-}
-
-/**
- * Close current modal after opnening new modal
- */
-$("#transferTicket").click(function(){
-    $("#cancellationModal").hide();
-    $('#cancellationModal').modal('hide');
-});
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+      if (event.target == modal2) {
+          modal2.style.display = "none";
+      }
+  }
 </script>
 
 
