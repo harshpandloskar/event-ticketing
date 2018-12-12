@@ -58,8 +58,8 @@
         /**
          * Insert into database.
          */
-        $sqlQueryInsertion = "INSERT INTO booking (userName, userEmail, bookingID, seatNum, eventName, eventDay, eventTime)
-        VALUES ('$userNameC', '$userEmailC', '$_bookingID', '$seat_num', '$_eventName', '$_day', '$_time')";
+        $sqlQueryInsertion = "INSERT INTO booking (userName, userEmail, bookingID, seatNum, eventName, eventDay, eventTime, bookingStatus, waitingStatus)
+        VALUES ('$userNameC', '$userEmailC', '$_bookingID', '$seat_num', '$_eventName', '$_day', '$_time', 'Confirmed', 'n/a')";
         // print_r($userEmailC);
 
         if (mysqli_query($conn, $sqlQueryInsertion)) {

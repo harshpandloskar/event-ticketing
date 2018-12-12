@@ -136,7 +136,7 @@
     <div class="movies-data" style="display:none;">
         <h3 class="panel-body"><strong>Purchase history</strong></h3>
         <?php
-          $username = $_SESSION["uname"];
+          $useremail = $_SESSION["email"];
 
           // Create connection
           $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
@@ -145,15 +145,18 @@
             die("Connection failed: " . mysqli_connect_error());
           }
 
-          $sql = "SELECT * FROM booking WHERE userName = '$username'";
+          $sql = "SELECT * FROM booking WHERE userEmail = '$useremail'";
           $result = mysqli_query($conn, $sql);
           $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+          // $sqlUpdateQuery = "UPDATE booking SET userName='Doe' WHERE id=2";
+
           for($i=0; $i<count($rows);$i++) {
         ?>
           <div class="_purchase-booking panel panel-default">
             <div class="_bookingInfo">
               <p class="_align-left"><strong>Event:</strong> <?php echo $rows[$i]["eventName"]; ?></p>
-              <p class="_align-left"><strong>Seat:</strong> | <?php echo $rows[$i]["eventName"]; ?> |</strong></p>
+              <p class="_align-left"><strong>Seat:</strong> | <?php echo $rows[$i]["seatNum"]; ?> |</strong></p>
               <p class="_align-left"><strong>Time:</strong> <?php echo $rows[$i]["eventTime"]; ?></strong></p>
               <p class="_align-left"><strong>Day:</strong> <?php echo $rows[$i]["eventDay"]; ?></strong></p>
               <p class="_align-left"><strong>Booking ID:</strong> <?php echo $rows[$i]["bookingID"]; ?></strong></p>
@@ -197,26 +200,35 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form method="post" action="transfer_success.php">
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">User email:</label>
-                      <input type="text" class="form-control" id="recipient-name">
+                      <label for="recipient-name<?php echo $i; ?>" class="col-form-label">User email:</label>
+                      <input type="email" name="userEmail" class="form-control" id="recipient-name<?php echo $i; ?>" required>
                     </div>
+                    <input type="hidden" value="<?php echo $rows[$i]["eventName"]; ?>" name="eventName" />
+                    <input type="hidden" value="<?php echo $rows[$i]["seatNum"]; ?>" name="seat" />
+                    <input type="hidden" value="<?php echo $rows[$i]["eventTime"]; ?>" name="time" />
+                    <input type="hidden" value="<?php echo $rows[$i]["eventDay"]; ?>" name="day" />
+                    <input type="hidden" value="<?php echo $rows[$i]["bookingID"]; ?>" name="bookingId" />
+                    <input type="hidden" value="<?php echo $rows[$i]["bookingStatus"]; ?>" name="bookingStatus" />
+                    <input type="hidden" value="<?php echo $rows[$i]["waitingStatus"]; ?>" name="waitingStatus" />
+                    <input type="hidden" value="<?php echo $_SESSION["full_name"]; ?>" name="userFullName" />
                     <div class="form-group">
-                      <label for="message-text" class="col-form-label">Remark:</label>
-                      <textarea class="form-control" id="message-text"></textarea>
+                      <label for="message-text<?php echo $i; ?>" class="col-form-label">Remark:</label>
+                      <textarea class="form-control" name="remark" id="message-text<?php echo $i; ?>" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Transfer my ticket!</button>
                     </div>
                   </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Send message</button>
                 </div>
               </div>
             </div>
           </div>
 
           <script>
+
           /**
            * Close current modal after opnening new modal
            */
