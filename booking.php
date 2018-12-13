@@ -239,6 +239,14 @@
           </script>
         <?php
           }
+          if(count($rows) == 0) {
+        ?>
+        <div>
+            <h3>You haven't bought any tickets yet.</h3>
+        </div>
+        <?php
+          }
+
           // Free result set
           mysqli_free_result($result);
           mysqli_close($con);exit;
