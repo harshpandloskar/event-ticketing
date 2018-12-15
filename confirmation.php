@@ -6,13 +6,18 @@
 
   $_time = $_GET["time"];
   $_day = $_GET["day"];
+
+  /**
+   * Queue process bool
+   */
+  $isQueue = false;
   
   /**
    * Booking ID
    */
   $length = 6;
   $_bookingID = strtoupper(substr(str_shuffle("abcdefghijklmnopqrstuvwxyz123456789"), 0, $length));
-
+  
   /**
    * Event name
    */
@@ -25,8 +30,9 @@
   $random_seat = strtoupper(substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, $length));
 
   $seat_num = strtoupper($random_seat. '' .rand(0,10));
-
+  
   if(isset($_COOKIE[$cookie_name])) {
+    
     if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
       
       // function test_data($data) {
@@ -46,6 +52,21 @@
       $userNameC = $_SESSION["uname"];
       $userEmailC = $_SESSION["email"];
 
+      /**
+       * Checking info for ticket limits.
+       */
+      $_sqlQueryLimit = "SELECT * FROM `ticket_tbl` WHERE events='$_eventName'";
+      $resultConfirmationLimit = mysqli_query($conn, $_sqlQueryLimit);
+      $rowLimit = mysqli_fetch_row($resultConfirmationLimit);
+      $_queueNum = $rowLimit[2];
+
+      if($_queueNum == '0') {
+        $isQueue = true;
+      }
+      
+      /**
+       * Checking booking info in database
+       */
       $sqlQueryConfirmation = "SELECT * FROM booking WHERE userName = '$userNameC'";
       $resultConfirmation = mysqli_query($conn, $sqlQueryConfirmation);
       $rowC = mysqli_fetch_row($resultConfirmation);
@@ -56,13 +77,29 @@
       if($bookingID != $_bookingID && $_eventNameD != $_eventName) {
 
         /**
+         * waiting status
+         */
+        $_statusMsg = $isQueue == true ? 'Waiting list' : 'Confirmed';
+        $_status = $isQueue == true ? 'Queue(1)' : 'n/a';
+        
+
+        /**
          * Insert into database.
          */
         $sqlQueryInsertion = "INSERT INTO booking (userName, userEmail, bookingID, seatNum, eventName, eventDay, eventTime, bookingStatus, waitingStatus)
-        VALUES ('$userNameC', '$userEmailC', '$_bookingID', '$seat_num', '$_eventName', '$_day', '$_time', 'Confirmed', 'n/a')";
+        VALUES ('$userNameC', '$userEmailC', '$_bookingID', '$seat_num', '$_eventName', '$_day', '$_time', '$_statusMsg', '$_status')";
         // print_r($userEmailC);
 
         if (mysqli_query($conn, $sqlQueryInsertion)) {
+          echo "";
+        }
+
+        /**
+         * Update query for ticketing table.
+         */
+        $_sqlQuery = "UPDATE ticket_tbl SET ticket_limit=ticket_limit-1 WHERE events='$_eventName'";
+        
+        if (mysqli_query($conn, $_sqlQuery)) {
           echo "";
         }
       }
@@ -129,7 +166,17 @@
                 <p class="_seat"><strong>Seat:</strong> | <?php echo $seat_num; ?> | </p>
                 <p class="_time"><strong>Time:</strong> <?php echo $_time; ?></p>
                 <p class="_day"><strong>Day:</strong> <?php echo $_day; ?></p>
+                <?php
+                  if($isQueue == false) {
+                ?>
                 <p class="_bookingID"><strong>Booking ID:</strong> <?php echo $_bookingID; ?> </p>
+                <?php
+                  }else {
+                ?>
+                <p class="_bookingID"><strong>Booking status:</strong> <?php echo 'You are currently in queue'; ?> </p>
+                <?php
+                  } 
+                ?>
                 <p style="font-size:14px;">Please show this booking id before entering!</p>
             </div>
         </div> 
@@ -149,6 +196,10 @@
       echo "<br/><a href='index.php'>Go to home page and try again</a>";
       exit;
     }
+  }else {
+    echo "Please login your account first before booking";
+    echo "<br/><a href='index.php'>Go to home page and try again</a>";
+    exit;
   }
 ?>
 

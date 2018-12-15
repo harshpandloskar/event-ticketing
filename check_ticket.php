@@ -1,39 +1,36 @@
 <?php
   require 'userData.php';
 
-  $userEmail = $_POST["userEmail"];
-  $eventName = $_POST["eventName"];
-  $seat = $_POST["seat"];
-  $time = $_POST["time"];
-  $day = $_POST["day"];
-  $bookingId = $_POST["bookingId"];
-  $bookingStatus = $_POST["bookingStatus"];
-  $waitingStatus = $_POST["waitingStatus"];
-  $userFullName = $_POST["userFullName"];
-  
-  $loggedInUserEmail = $_SESSION["email"];
+  $cookie_name = "isLoggedIn";
+  $cookie_value = "false";
 
-  // Create connection
-  $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
-  // Check connection
-  if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
+    if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
 
-  /**
-   * Inserting data to database
-   */
-  $sql = "INSERT INTO booking (userName, userEmail, bookingID, seatNum, eventName, eventDay, eventTime, bookingStatus, waitingStatus)
-  VALUES ('', '$userEmail', '$bookingId', '$seat', '$eventName', '$day', '$time', 'Confirmed ticket by $userFullName', 'n/a')";
-  if (mysqli_query($conn, $sql)) {
-    echo "";
-  }
+    /**
+     * Get parameters request.
+     */
+    $_eventName = ucfirst($_GET["event"]);
+    $_day = $_GET["day"];
+    $_time = $_GET["time"];
 
-  $updateSql = "UPDATE booking SET bookingStatus='Transferred to $userEmail' WHERE bookingID='$bookingId' AND userEmail='$loggedInUserEmail'";
-  if (mysqli_query($conn, $updateSql)) {
-    echo "";
-  }
+    // Create connection
+    $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    /**
+     * Check query for the limit.
+     */
+    $_sqlQuery = "SELECT * FROM `ticket_tbl` WHERE events='$_eventName'";
+    $resultConfirmation = mysqli_query($conn, $_sqlQuery);
+    $rowC = mysqli_fetch_row($resultConfirmation);
+    $_queueNum = $rowC[2];
+    // print_r($_queueNum=='2');exit;
 
+    if($_queueNum != '0') {
+        header('Location: ./confirmation.php?event='.$_eventName.'&day='.$_day.'&time='.$_time);
+    }else{
 ?>
 
 <!DOCTYPE html>
@@ -154,8 +151,15 @@
         <img src="./assets/loader/loader.gif" />
     </div>
     <div class="movies-data" style="display:none;">
-        <h3><strong>Ticket transfer success!</strong></h3><br>
-        <h3>You have successfully transferred your ticket to <strong><?php echo $userEmail; ?></strong>.</h3>
+        <h3><strong>Would you like to continue?</strong></h3><br>
+        <div class"_want_to_confirm">
+          <h4>Currently there is no ticket available for this event! Would you like to add your ticket in waiting list?</h4>
+          <h4>You will be added in <strong>waiting list(1)</strong></h4>
+        </div> 
+        <div class="_btn_confirmation">
+            <button type="button" class="btn btn-primary" onclick="redirect('<?php echo "confirmation.php?event=$_eventName&day=$_day&time=$_time"; ?>');">Yes, add me in waiting list</button>
+            <button type="button" class="btn btn-primary" onclick="redirect('index.php');">Go back to home page</button>
+        </div>
     </div>
 </div><br/><br/>
 
@@ -242,3 +246,11 @@ window.onclick = function(event) {
 
 </body>
 </html>
+<?php
+    }
+}else{
+    echo "Please login your account first before booking";
+    echo "<br/><a href='index.php'>Go to home page and try again</a>";
+    exit;
+}
+?>
