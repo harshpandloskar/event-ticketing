@@ -24,7 +24,7 @@
     /**
      * Check query for the limit.
      */
-    $_sqlQuery = "UPDATE `ticket_tbl` SET ticket_limit=ticket_limit+1 WHERE events='$_eventName'";
+    $_sqlQuery = "UPDATE `ticket_tbl` SET ticket_limit=ticket_limit+1, isWaitingList='N' WHERE events='$_eventName'";
     if (mysqli_query($conn, $_sqlQuery)) {
         echo "";
     }

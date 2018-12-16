@@ -32,6 +32,15 @@
     if($_queueNum != '0') {
         header('Location: ./confirmation.php?event='.$_eventName.'&day='.$_day.'&time='.$_time);
     }else{
+
+    /**
+     * Update isWaitingList query with "Y" response
+     */
+    $_sqlQueryWaiting = "UPDATE `ticket_tbl` SET isWaitingList='Y' WHERE events='$_eventName'";
+    
+    if (mysqli_query($conn, $_sqlQueryWaiting)) {
+      echo "";
+    }
 ?>
 
 <!DOCTYPE html>

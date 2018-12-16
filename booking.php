@@ -170,9 +170,9 @@
             $_sqlQueryTicketLimit = "SELECT * FROM `ticket_tbl` WHERE events='$_eventName'";
             $resultConfirmationTicketLimit = mysqli_query($conn, $_sqlQueryTicketLimit);
             $rowCTcktLimit = mysqli_fetch_row($resultConfirmationTicketLimit);
-            $_queueNum = $rowCTcktLimit[2];
-
-            if($_queueNum == '0') {
+            $_queueNum = $rowCTcktLimit[3];
+            
+            if($_queueNum == 'Y') {
               $_isQueue = true;
             }else {
               $_isQueue = false;
@@ -185,15 +185,28 @@
               <p class="_align-left"><strong>Time:</strong> <?php echo $rows[$i]["eventTime"]; ?></strong></p>
               <p class="_align-left"><strong>Day:</strong> <?php echo $rows[$i]["eventDay"]; ?></strong></p>
               <p class="_align-left"><strong>Booking ID:</strong> <?php echo $rows[$i]["bookingID"]; ?></strong></p>
+            <?php 
+              if($_isQueue || $rows[$i]["bookingStatus"] == "Ticket cancelled") {
+            ?>
               <p class="_align-left"><strong>Booking status:</strong> <?php echo $rows[$i]["bookingStatus"]; ?></strong></p>
               <p class="_align-left"><strong>Waiting status:</strong> <?php echo $rows[$i]["waitingStatus"]; ?></strong></p>
+            <?php 
+              }else{
+            ?>
+              <p class="_align-left"><strong>Booking status:</strong> <?php echo "Confirmed"; ?></strong></p>
+              <p class="_align-left"><strong>Waiting status:</strong> <?php echo "n/a"; ?></strong></p>
+            <?php
+              } 
+            ?>
             </div>
 
             <?php
-              if($rows[$i]["bookingStatus"] != "Ticket cancelled") {
+              if($rows[$i]["bookingStatus"] == "Ticket cancelled" || $rows[$i]["bookingStatus"] == "Waiting list" ) {
+                //do nothing
+              }else {
             ?>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal<?php echo $i; ?>">Ticket cancellation available</button>
-            <?php
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal<?php echo $i; ?>">Ticket cancellation available</button>
+            <?php 
               }
             ?>
           </div><br/>
