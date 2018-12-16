@@ -7,11 +7,13 @@
     if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
 
     /**
+     * User name
+     */
+    $_userName = $_SESSION["uname"];
+    /**
      * Get parameters request.
      */
     $_eventName = ucfirst($_GET["event"]);
-    $_day = $_GET["day"];
-    $_time = $_GET["time"];
 
     // Create connection
     $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
@@ -22,16 +24,19 @@
     /**
      * Check query for the limit.
      */
-    $_sqlQuery = "SELECT * FROM `ticket_tbl` WHERE events='$_eventName'";
-    $resultConfirmation = mysqli_query($conn, $_sqlQuery);
-    $rowC = mysqli_fetch_row($resultConfirmation);
-    
-    $_queueNum = $rowC[2];
-    // print_r($_queueNum=='2');exit;
+    $_sqlQuery = "UPDATE `ticket_tbl` SET ticket_limit=ticket_limit+1 WHERE events='$_eventName'";
+    if (mysqli_query($conn, $_sqlQuery)) {
+        echo "";
+    }
 
-    if($_queueNum != '0') {
-        header('Location: ./confirmation.php?event='.$_eventName.'&day='.$_day.'&time='.$_time);
-    }else{
+    /**
+     * Update query for ticket cancellation and update the queue process.
+     */
+    $_sqlQueryUpdate = "UPDATE `booking` SET bookingStatus='Ticket cancelled', waitingStatus='Ticket cancelled' WHERE eventName='$_eventName' AND userName='$_userName'";
+    
+    if (mysqli_query($conn, $_sqlQueryUpdate)) {
+        echo "";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -152,14 +157,11 @@
         <img src="./assets/loader/loader.gif" />
     </div>
     <div class="movies-data" style="display:none;">
-        <h3><strong>Would you like to continue?</strong></h3><br>
+        <h3><strong>Ticket cancellation success!</strong></h3><br>
         <div class"_want_to_confirm">
-          <h4>Currently there is no ticket available for this event! Would you like to add your ticket in waiting list?</h4>
-          <h4>Your ticket is added in waiting list</h4>
-        </div> 
-        <div class="_btn_confirmation">
-            <button type="button" class="btn btn-primary" onclick="redirect('<?php echo "confirmation.php?event=$_eventName&day=$_day&time=$_time"; ?>');">Yes, add me in waiting list</button>
-            <button type="button" class="btn btn-primary" onclick="redirect('index.php');">Go back to home page</button>
+            <img src="./assets/images/cancelled.png" style="height: 100px;width: 200px;" /><br>
+            <br/><h4>Your ticket is cancelled successfully</h4>
+            <br/><p class="_movie-name"><strong>Event:</strong> <?php echo $_eventName; ?></p>
         </div>
     </div>
 </div><br/><br/>
@@ -248,7 +250,7 @@ window.onclick = function(event) {
 </body>
 </html>
 <?php
-    }
+
 }else{
     echo "Please login your account first before booking";
     echo "<br/><a href='index.php'>Go to home page and try again</a>";

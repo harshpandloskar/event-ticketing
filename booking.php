@@ -189,7 +189,13 @@
               <p class="_align-left"><strong>Waiting status:</strong> <?php echo $rows[$i]["waitingStatus"]; ?></strong></p>
             </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal<?php echo $i; ?>">Ticket cancellation available</button>
+            <?php
+              if($rows[$i]["bookingStatus"] != "Ticket cancelled") {
+            ?>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancellationModal<?php echo $i; ?>">Ticket cancellation available</button>
+            <?php
+              }
+            ?>
           </div><br/>
 
           <!-- Ticket cancel ask option -->
@@ -216,7 +222,7 @@
                      */
                     if(!$_isQueue) {
                   ?>
-                  <button type="button" class="btn btn-primary">Sell back</button>
+                  <button type="button" class="btn btn-primary" onclick="redirect('cancel_ticket.php?event=<?php echo $rows[$i]["eventName"]; ?>');">Sell back</button>
                   <?php
                     } 
                   ?>
