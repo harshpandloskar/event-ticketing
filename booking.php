@@ -12,6 +12,11 @@
     return $rows;
   }
 
+  /**
+   * Default value queue is false
+   */
+  $_isQueue = false;
+
   if(isset($_COOKIE[$cookie_name])) {
     if($_COOKIE[$cookie_name] == "true" && $_SESSION["uname"] != '') {
 ?>
@@ -136,6 +141,7 @@
     <div class="movies-data" style="display:none;">
         <h3 class="panel-body"><strong>Purchase history</strong></h3>
         <?php
+
           $useremail = $_SESSION["email"];
 
           // Create connection
@@ -150,8 +156,27 @@
           $rows = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
           // $sqlUpdateQuery = "UPDATE booking SET userName='Doe' WHERE id=2";
-
+           
           for($i=0; $i<count($rows);$i++) {
+
+          /**
+           * Queue list from database to confirm "sell back button options should be listed
+           * or not.
+           */
+            /**
+             * Events name
+             */
+            $_eventName = $rows[$i]["eventName"];
+            $_sqlQueryTicketLimit = "SELECT * FROM `ticket_tbl` WHERE events='$_eventName'";
+            $resultConfirmationTicketLimit = mysqli_query($conn, $_sqlQueryTicketLimit);
+            $rowCTcktLimit = mysqli_fetch_row($resultConfirmationTicketLimit);
+            $_queueNum = $rowCTcktLimit[2];
+
+            if($_queueNum == '0') {
+              $_isQueue = true;
+            }else {
+              $_isQueue = false;
+            }
         ?>
           <div class="_purchase-booking panel panel-default">
             <div class="_bookingInfo">
@@ -183,7 +208,18 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" id="transferTicket<?php echo $i; ?>" class="btn btn-primary" data-toggle="modal" data-target="#transferTicketModal<?php echo $i; ?>">Transfer ticket</button>
+                  
+                  <?php 
+                    /**
+                     * If ticket is in queue process then let's don't show the 
+                     * sell back button option
+                     */
+                    if(!$_isQueue) {
+                  ?>
                   <button type="button" class="btn btn-primary">Sell back</button>
+                  <?php
+                    } 
+                  ?>
                 </div>
               </div>
             </div>

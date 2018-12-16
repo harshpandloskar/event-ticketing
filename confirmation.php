@@ -80,7 +80,7 @@
          * waiting status
          */
         $_statusMsg = $isQueue == true ? 'Waiting list' : 'Confirmed';
-        $_status = $isQueue == true ? 'Queue(1)' : 'n/a';
+        $_status = $isQueue == true ? 'Queue' : 'n/a';
         
 
         /**
