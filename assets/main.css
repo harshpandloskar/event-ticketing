@@ -189,3 +189,9 @@ span.psw {
   padding: 10px;
 }
 
+.notification-icon {
+  position: absolute;
+  top: -20px;
+  right: 200px;
+  height: 60px!important;
+}

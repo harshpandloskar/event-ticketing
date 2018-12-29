@@ -12,6 +12,13 @@
     return $rows;
   }
 
+  $userEmaill = $_SESSION["email"];
+  $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
+  /**
+   * Let's remove the notification by updating queries.
+   */
+  $notifySql = "UPDATE `notification` SET shouldDisplay = 'N' WHERE userEmail = '$userEmaill'";
+  mysqli_query($conn, $notifySql);
   /**
    * Default value queue is false
    */
@@ -186,7 +193,7 @@
               <p class="_align-left"><strong>Day:</strong> <?php echo $rows[$i]["eventDay"]; ?></strong></p>
               <p class="_align-left"><strong>Booking ID:</strong> <?php echo $rows[$i]["bookingID"]; ?></strong></p>
             <?php 
-              if($_isQueue || $rows[$i]["bookingStatus"] == "Ticket cancelled") {
+              if($_isQueue || $rows[$i]["bookingStatus"] == "Ticket cancelled" || strpos($rows[$i]["bookingStatus"], 'Confirmed ticket by') !== false || strpos($rows[$i]["bookingStatus"], 'Transferred to') !== false) {
             ?>
               <p class="_align-left"><strong>Booking status:</strong> <?php echo $rows[$i]["bookingStatus"]; ?></strong></p>
               <p class="_align-left"><strong>Waiting status:</strong> <?php echo $rows[$i]["waitingStatus"]; ?></strong></p>

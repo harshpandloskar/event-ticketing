@@ -44,7 +44,15 @@ if (!empty($row) && $row[1] === $username){
     $Isql = "INSERT INTO users (userName, userEmail, userFullName, pass)
     VALUES ('$username', '$userEmail', '$userFullName', '$Password')";
     $Iresult = mysqli_query($conn, $Isql);
-    if($Iresult == true){
+
+    /**
+     * Add notification table to show icon.
+     */
+    $notifySql = "INSERT INTO `notification` (userEmail, shouldDisplay)
+    VALUES ('$userEmail', 'Y')";
+    $resNotify = mysqli_query($conn, $notifySql);
+
+    if($Iresult == true && $resNotify == true){
         header('Location: successful.php');
         exit;
     }else {

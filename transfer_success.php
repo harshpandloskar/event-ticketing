@@ -34,6 +34,13 @@
     echo "";
   }
 
+  /**
+   * Update the notification for user who have received the transfer ticket.
+   */
+  $notifySql = "UPDATE `notification` SET shouldDisplay='Y' WHERE userEmail='$userEmail'";
+  if (mysqli_query($conn, $notifySql)) {
+    echo "";
+  }
 ?>
 
 <!DOCTYPE html>

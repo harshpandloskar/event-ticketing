@@ -1,5 +1,25 @@
 <?php
   require 'userData.php';
+
+  $isUserrLoggedIn = false;
+
+  if($_SESSION["email"] != '') {
+    $isUserrLoggedIn = true;
+    /**
+     * Let's see if there any notification available.
+     */
+    $userEmailN = $_SESSION["email"];
+    $conn = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbName);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    $sqlN = "SELECT * FROM `notification` WHERE userEmail = '$userEmailN'";
+    $resultN = mysqli_query($conn, $sqlN);
+    $rowN = mysqli_fetch_row($resultN);
+    $notification = $rowN[2];
+    // print_r($notification);exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +99,17 @@
         ?>
           <li>
             <!-- User name -->
-            <a href="booking.php" style="width:auto;color:#fff;"><?php echo 'Hi, ' . $_SESSION["full_name"] . '!'; ?></a>
+            <a href="booking.php" style="width:auto;color:#fff;position: relative;z-index: 999;"><?php echo 'Hi, ' . $_SESSION["full_name"] . '!'; ?></a>
+            <?php
+              if($isUserrLoggedIn == true) {
+                if($notification == 'Y') {
+            ?>
+            <!-- Notification icon -->
+            <img class="notification-icon" src="assets/notification/notification.gif" alt="You have notification" />
+            <?php
+                }
+              }
+            ?>
           </li>
           <li style="color: #fff;">
             &nbsp;&nbsp;|&nbsp;&nbsp;
