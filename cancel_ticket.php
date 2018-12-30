@@ -21,6 +21,15 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+    /**
+     * Get the username list from that event who are in waiting list for now.
+     */
+    $_sqlQueryUserList = "SELECT * FROM `booking` WHERE eventName = '$_eventName' and bookingStatus='Waiting list'";
+    $resultUserList = mysqli_query($conn, $_sqlQueryUserList);
+    $rowNUserL = mysqli_fetch_row($resultUserList);
+    $userEmailQueueEvent = $rowNUserL[2];
+
     /**
      * Check query for the limit.
      */
@@ -29,8 +38,27 @@
         echo "";
     }
 
+    /**bookingStatus
+     * Update those users who have waiting list since those will get notification that 
+     * your ticket is successfully confirmed from queue.
+     */
+    $_sqlQueryBookingQ = "UPDATE `booking` SET bookingStatus='Confirmed' WHERE eventName='$_eventName' AND userEmail='$userEmailQueueEvent'";
+    
+    if (mysqli_query($conn, $_sqlQueryBookingQ)) {
+        echo "";
+    }
+
     /**
-     * Update query for ticket cancellation and update the queue process.
+     * Send notifications to those users whose tickets are cleared from queue.
+     */
+    $_sqlQueryNotification = "UPDATE `notification` SET shouldDisplay='Y', notificationMsg='Your ticket is confirmed from queue' WHERE userEmail='$userEmailQueueEvent'";
+    if (mysqli_query($conn, $_sqlQueryNotification)) {
+        echo "";
+    }
+
+
+    /**
+     * Update query for ticket cancellation for the current user.
      */
     $_sqlQueryUpdate = "UPDATE `booking` SET bookingStatus='Ticket cancelled', waitingStatus='Ticket cancelled' WHERE eventName='$_eventName' AND userName='$_userName'";
     

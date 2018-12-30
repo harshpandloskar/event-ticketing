@@ -240,7 +240,7 @@
                      * If ticket is in queue process then let's don't show the 
                      * sell back button option
                      */
-                    if($_isQueue) {
+                    if($_isQueue || $rows[$i]["bookingStatus"] == "Confirmed" || strpos($rows[$i]["bookingStatus"], 'Confirmed ticket by') !== false) {
                   ?>
                   <button type="button" class="btn btn-primary" onclick="redirect('cancel_ticket.php?event=<?php echo $rows[$i]["eventName"]; ?>');">Sell back</button>
                   <?php

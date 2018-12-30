@@ -58,6 +58,7 @@ SET SQL_SAFE_UPDATES = 0;
 --     notificationMsg VARCHAR(100) NOT NULL,
 --     PRIMARY KEY(UserNameID)
 -- );
-
--- UPDATE `notification` SET shouldDisplay='Y' WHERE userEmail='rajendra@gmail.com';
+-- UPDATE `ticket_tbl` SET ticket_limit='1' WHERE events='Dirty Grandpa';
+-- UPDATE `ticket_tbl` SET shouldDisplay='Y' WHERE userEmail='rajendra@gmail.com';
+-- UPDATE `notification` SET shouldDisplay='Y', notificationMsg='Your ticket is confirmed from queue' WHERE userEmail='C@gmail.com';
 SELECT * FROM `notification`;
