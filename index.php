@@ -18,7 +18,8 @@
     $resultN = mysqli_query($conn, $sqlN);
     $rowN = mysqli_fetch_row($resultN);
     $notification = $rowN[2];
-    // print_r($notification);exit;
+    $notificationMsg = $rowN[3];
+    // print_r($notificationMsg);exit;
   }
 ?>
 
@@ -99,17 +100,40 @@
         ?>
           <li>
             <!-- User name -->
-            <a href="booking.php" style="width:auto;color:#fff;position: relative;z-index: 999;"><?php echo 'Hi, ' . $_SESSION["full_name"] . '!'; ?></a>
+            <a href="booking.php" style="width:auto;color:#fff;position: relative;z-index: 999;"><?php echo 'Hi, ' . $_SESSION["full_name"] . '!'; ?></a> 
+          </li>
+          <li style="color: #fff;">
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+          </li>
+          <li id="notification_li">
+            <a style="color: #fff;position: relative;z-index: 999;" href="#" id="notificationLink"><img style="height: 20px;" src="icons/notification.png" alt="You have notifications" /></a>
             <?php
               if($isUserrLoggedIn == true) {
                 if($notification == 'Y') {
             ?>
-            <!-- Notification icon -->
-            <img class="notification-icon" src="assets/notification/notification.gif" alt="You have notification" />
+              <!-- Notification icon -->
+              <img class="notification-icon" src="assets/notification/notification.gif" alt="You have notification" />
             <?php
                 }
               }
             ?>
+            <div id="notificationContainer">
+              <div id="notificationTitle">Notifications</div>
+              <div id="notificationsBody" class="notifications">
+                <?php
+                  if($notificationMsg != '') { 
+                ?>
+                <a href="booking.php" onclick="redirect('booking.php');"><?php echo $notificationMsg; ?></a>
+                <?php
+                  }else{
+                ?>
+                  <span>You don't have any notifications!</span>
+                <?php
+                  } 
+                ?>
+              </div>
+              <div id="notificationFooter"><a href="booking.php" onclick="redirect('booking.php');">See All</a></div>
+			      </div>
           </li>
           <li style="color: #fff;">
             &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -226,7 +250,26 @@ window.onclick = function(event) {
 }
 </script>
 
-
+<script type="text/javascript">
+  /**
+    * ----------------NOTIFICATION--------------------
+    */
+  $(document).ready(function(){
+      $("#notificationLink").click(function(){
+        $("#notificationContainer").fadeToggle(300);
+        $("#notification_count").fadeOut("slow");
+      return false;
+    });
+    //Document Click hiding the popup 
+    $(document).click(function(){
+      $("#notificationContainer").hide();
+    });
+    //Popup on click
+    $("#notificationContainer").click(function(){
+      return false;
+    });
+  });
+</script>
 <footer class="container-fluid text-center">
 <!-- Display login status -->
 <div id="status"></div>

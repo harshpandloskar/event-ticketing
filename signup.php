@@ -48,8 +48,8 @@ if (!empty($row) && $row[1] === $username){
     /**
      * Add notification table to show icon.
      */
-    $notifySql = "INSERT INTO `notification` (userEmail, shouldDisplay)
-    VALUES ('$userEmail', 'Y')";
+    $notifySql = "INSERT INTO `notification` (userEmail, shouldDisplay, notificationMsg)
+    VALUES ('$userEmail', 'Y', 'Welcome $username to ticketing app!')";
     $resNotify = mysqli_query($conn, $notifySql);
 
     if($Iresult == true && $resNotify == true){

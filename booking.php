@@ -17,7 +17,7 @@
   /**
    * Let's remove the notification by updating queries.
    */
-  $notifySql = "UPDATE `notification` SET shouldDisplay = 'N' WHERE userEmail = '$userEmaill'";
+  $notifySql = "UPDATE `notification` SET shouldDisplay = 'N', notificationMsg = '' WHERE userEmail = '$userEmaill'";
   mysqli_query($conn, $notifySql);
   /**
    * Default value queue is false
