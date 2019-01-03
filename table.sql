@@ -3,15 +3,15 @@ USE `creatsm3_eventticketing`;
 SET SQL_SAFE_UPDATES = 0;
 
 -- SELECT * FROM `booking` WHERE userName = 'rajendraarora16';
-
+-- DROP TABLE IF EXISTS `users`;
 -- CREATE TABLE `users` ( 
---     UserNameID int(9) NOT NULL auto_increment,
---     userName VARCHAR(40) NOT NULL,
---     userEmail VARCHAR(40) NOT NULL,
---     userFullName VARCHAR(40) NOT NULL,
---     pass VARCHAR(40) NOT NULL, 
---     PRIMARY KEY(UserNameID) 
--- );
+-- --     UserNameID int(9) NOT NULL auto_increment,
+-- --     userName VARCHAR(40) NOT NULL,
+-- --     userEmail VARCHAR(40) NOT NULL,
+-- --     userFullName VARCHAR(40) NOT NULL,
+-- --     pass VARCHAR(40) NOT NULL, 
+-- --     PRIMARY KEY(UserNameID) 
+-- -- );
 
 -- DROP TABLE IF exists `booking`;
 
@@ -39,16 +39,16 @@ SET SQL_SAFE_UPDATES = 0;
 --     PRIMARY KEY(UserNameID) 
 -- );
 
--- INSERT INTO `ticket_tbl` VALUES('', 'Geostorm', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'The Jungle Book', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Dirty Grandpa', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Angry Birds', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Finding Dory', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Alice in Wonderland: Through the Looking Glass', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Batman v Superman: Dawn of Justice', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Kung Fu Panda 3', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'the Free State of Jones', '2', 'N');
--- INSERT INTO `ticket_tbl` VALUES('', 'Zootopia', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'A Flair to Remember', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'A Series of Fortunate Events', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Effortless Events', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Belle of the Ball', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Picture Perfect', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Ceremony Events', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Corporate Affairs', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Corroboree', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Dream Wedding', '2', 'N');
+-- INSERT INTO `ticket_tbl` VALUES('', 'Celebrations', '2', 'N');
 -- DROP TABLE IF EXISTS `users`;
 -- DROP TABLE IF EXISTS `notification`;
 -- CREATE TABLE IF NOT EXISTS `notification` (
@@ -61,4 +61,4 @@ SET SQL_SAFE_UPDATES = 0;
 -- UPDATE `ticket_tbl` SET ticket_limit='1' WHERE events='Dirty Grandpa';
 -- UPDATE `ticket_tbl` SET shouldDisplay='Y' WHERE userEmail='rajendra@gmail.com';
 -- UPDATE `notification` SET shouldDisplay='Y', notificationMsg='Your ticket is confirmed from queue' WHERE userEmail='C@gmail.com';
-SELECT * FROM `notification`;
+SELECT * FROM `users`;
