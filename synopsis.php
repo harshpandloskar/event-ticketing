@@ -59,7 +59,7 @@
             </ul> 
             <div class="_background-design-white"> 
                 <div class="_cast-mem">
-                    <div class="_director-name"><strong>Director: </strong></div><br/><br/>
+                    <div class="_director-name"><strong>Artist: </strong></div><br/><br/>
                     <div class="_cast"><strong>Cast: </strong></div><br/><br/>
                     <div class="_notes"><strong>Notes: </strong></div><br/><br/>
                     <div class="_year"><strong>Relasing date: </strong></div><br/><br/>
