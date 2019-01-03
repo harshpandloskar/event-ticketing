@@ -35,7 +35,6 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="index.php">Home</a></li>
-        <li class="active"><a href="contactus.php">Contact Us</a></li>
       </ul>
     </div>
   </div>
@@ -61,7 +60,6 @@
             <div class="_background-design-white"> 
                 <div class="_cast-mem">
                     <div class="_director-name"><strong>Director: </strong></div><br/><br/>
-                    <div class="_genre"><strong>Genre: </strong></div><br/><br/>
                     <div class="_cast"><strong>Cast: </strong></div><br/><br/>
                     <div class="_notes"><strong>Notes: </strong></div><br/><br/>
                     <div class="_year"><strong>Relasing date: </strong></div><br/><br/>
@@ -244,7 +242,6 @@
 
 <footer class="container-fluid text-center">
     <p>Harsh Pandloskar (10384363) | MSc In Information Systems with Computing</p><br>
-    <p>Events PWA | Web Assignment</p>
 </footer>
 
 </body>

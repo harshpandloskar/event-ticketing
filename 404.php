@@ -53,7 +53,6 @@
 
 <footer class="container-fluid text-center">
   <p>Harsh Pandloskar (10384363) | MSc In Information Systems with Computing</p><br>
-  <p>Events PWA | Web Assignment</p>
 </footer>
 
 </body>

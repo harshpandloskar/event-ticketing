@@ -112,7 +112,6 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Home</a></li>
-        <li class="active"><a href="contactus.php">Contact Us</a></li>
       </ul>
       <ul class="login-oauth">
         <?php
@@ -251,7 +250,6 @@ window.onclick = function(event) {
 <!-- Display user profile data -->
 <div id="userData"></div>
   <p>Harsh Pandloskar (10384363) | MSc In Information Systems with Computing</p><br>
-  <p>Events PWA | Web Assignment</p>
 </footer>
 
 </body>

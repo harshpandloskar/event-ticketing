@@ -13,6 +13,11 @@ footer {
     cursor: pointer;
 }
 
+img.movie-selection.event-poster {
+  width: 400px;
+  height: 230px;
+}
+
 .jumbotron {
   background: #fff;
 }

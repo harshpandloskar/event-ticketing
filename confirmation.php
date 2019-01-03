@@ -144,7 +144,6 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="index.php">Home</a></li>
-        <li class="active"><a href="contactus.php">Contact Us</a></li>
       </ul>
     </div>
   </div>
@@ -185,7 +184,6 @@
 
 <footer class="container-fluid text-center">
   <p>Harsh Pandloskar (10384363) | MSc In Information Systems with Computing</p><br>
-  <p>Events PWA | Web Assignment</p>
 </footer>
 
 </body>
