@@ -32,13 +32,15 @@
 
     /**
      * Check query for the limit.
+     * And updating booking info with limit once user cancel the ticket.
      */
     $_sqlQuery = "UPDATE `ticket_tbl` SET ticket_limit=ticket_limit+1, isWaitingList='N' WHERE events='$_eventName'";
     if (mysqli_query($conn, $_sqlQuery)) {
         echo "";
     }
 
-    /**bookingStatus
+    /**
+     * bookingStatus
      * Update those users who have waiting list since those will get notification that 
      * your ticket is successfully confirmed from queue.
      */
@@ -58,6 +60,7 @@
 
 
     /**
+     * (Sell back query for booking)
      * Update query for ticket cancellation for the current user.
      */
     $_sqlQueryUpdate = "UPDATE `booking` SET bookingStatus='Ticket cancelled', waitingStatus='Ticket cancelled' WHERE eventName='$_eventName' AND userName='$_userName'";

@@ -20,9 +20,13 @@
         die("Connection failed: " . mysqli_connect_error());
     }
     /**
-     * Check query for the limit.
+     * Check query for the ticket limit whether ticket is available or not
      */
     $_sqlQuery = "SELECT * FROM `ticket_tbl` WHERE events='$_eventName'";
+    /**
+     * $conn -> is a database connection.
+     * $_sqlQuery -> is a query.
+     */
     $resultConfirmation = mysqli_query($conn, $_sqlQuery);
     $rowC = mysqli_fetch_row($resultConfirmation);
     
@@ -164,7 +168,7 @@
         <div class"_want_to_confirm">
           <h4>Currently there is no ticket available for this event! Would you like to add your ticket in waiting list?</h4>
           <h4>Your ticket is added in waiting list</h4>
-        </div> 
+        </div>
         <div class="_btn_confirmation">
             <button type="button" class="btn btn-primary" onclick="redirect('<?php echo "confirmation.php?event=$_eventName&day=$_day&time=$_time"; ?>');">Yes, add me in waiting list</button>
             <button type="button" class="btn btn-primary" onclick="redirect('index.php');">Go back to home page</button>

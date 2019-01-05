@@ -77,7 +77,8 @@
       if($bookingID != $_bookingID && $_eventNameD != $_eventName) {
 
         /**
-         * waiting status
+         * checking if user is in waiting list or not 
+         * else put the ticket with confirmation.
          */
         $_statusMsg = $isQueue == true ? 'Waiting list' : 'Confirmed';
         $_status = $isQueue == true ? 'Queue' : 'n/a';
@@ -95,6 +96,7 @@
         }
 
         /**
+         * Once users book ticket, the limit has to be decremented.
          * Update query for ticketing table.
          */
         $_sqlQuery = "UPDATE ticket_tbl SET ticket_limit=ticket_limit-1 WHERE events='$_eventName'";

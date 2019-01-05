@@ -21,6 +21,7 @@
   }
 
   /**
+   * (Transfer ticket query by entering email address)
    * Inserting data to database
    */
   $sql = "INSERT INTO booking (userName, userEmail, bookingID, seatNum, eventName, eventDay, eventTime, bookingStatus, waitingStatus)
@@ -29,6 +30,10 @@
     echo "";
   }
 
+  /**
+   * (Transfer ticket query by entering email address)
+   * Updating info in booking database once user sends ticket to another user.
+   */
   $updateSql = "UPDATE booking SET bookingStatus='Transferred to $userEmail' WHERE bookingID='$bookingId' AND userEmail='$loggedInUserEmail'";
   if (mysqli_query($conn, $updateSql)) {
     echo "";
