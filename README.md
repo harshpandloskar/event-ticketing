@@ -7,7 +7,7 @@
   
   
  ##  Features to Enhance Event Ticket Cancelation Process
- **  (Ticket Transfer and Sell back with Waiting list)**
+**(Ticket Transfer and Sell back with Waiting list)**
    
 Dissertation submitted in part fulfilment of the requirements
 for the degree of MSc Information System with Computing at Dublin Business School
