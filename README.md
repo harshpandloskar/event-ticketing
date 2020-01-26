@@ -10,15 +10,14 @@
   
   Features to Enhance Event Ticket Cancelation Process
    (Ticket Transfer and Sell back with Waiting list)
+   
 Dissertation submitted in part fulfilment of the requirements
-for the degree of
-MSc Information System with Computing
-at Dublin Business School
-Harsh Pandloskar
-10384363
+for the degree of MSc Information System with Computing at Dublin Business School
+by Harsh Pandloskar 10384363
 
 
 Development
+
 Software Requirements:
 Front End Technologies
 PHP, Java Script, CSS, HTML, Bootstrap
